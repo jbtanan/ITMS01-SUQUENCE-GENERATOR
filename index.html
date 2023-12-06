@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequence Generator</title>
+    <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Sequence Generator</h1>
+
+        <form id="sequenceForm">
+            <label for="sequenceType">Select Sequence Type:</label>
+            <select id="sequenceType" name="sequenceType">
+                <option value="lucas">Lucas Sequence</option>
+                <option value="fibonacci">Fibonacci Sequence</option>
+                <option value="tribonacci">Tribonacci Sequence</option>
+            </select>
+
+            <label for="sequenceLength">Enter Sequence Length:</label>
+            <input type="number" id="sequenceLength" name="sequenceLength" min="1" required>
+
+            <button type="button" onclick="generateSequence()">Generate Sequence</button>
+
+            <h2>Generated Sequence:</h2>
+            <p id="generatedSequence"></p>
+        </form>
+
+        <footer>
+            <p>&copy; BAUTISTA, PADRE JUAN, TANAN, RIVERA, ATANACIO</p>
+        </footer>
+    </div>
+
+    <script>
+        function generateSequence() {
+            var sequenceType = document.getElementById('sequenceType').value;
+            var sequenceLength = document.getElementById('sequenceLength').valueAsNumber;
+
+            var sequence = generateSequenceArray(sequenceType, sequenceLength);
+
+            document.getElementById('generatedSequence').innerText = sequence.join(', ');
+        }
+
+        function generateSequenceArray(type, length) {
+            var sequence = [];
+
+            if (type === 'lucas') {
+                sequence = generateLucasSequence(length);
+            } else if (type === 'fibonacci') {
+                sequence = generateFibonacciSequence(length);
+            } else if (type === 'tribonacci') {
+                sequence = generateTribonacciSequence(length);
+            }
+
+            return sequence;
+        }
+
+        function generateLucasSequence(length) {
+            var lucasSeq = [2, 1];
+            for (var i = 2; i < length; i++) {
+                lucasSeq.push(lucasSeq[i - 1] + lucasSeq[i - 2]);
+            }
+            return lucasSeq;
+        }
+
+        function generateFibonacciSequence(length) {
+            var fibSeq = [0, 1];
+            for (var i = 2; i < length; i++) {
+                fibSeq.push(fibSeq[i - 1] + fibSeq[i - 2]);
+            }
+            return fibSeq;
+        }
+
+        function generateTribonacciSequence(length) {
+            var tribonacciSeq = [0, 0, 1];
+            for (var i = 3; i < length; i++) {
+                tribonacciSeq.push(tribonacciSeq[i - 1] + tribonacciSeq[i - 2] + tribonacciSeq[i - 3]);
+            }
+            return tribonacciSeq;
+        }
+    </script>
+
+</body>
+</html>
